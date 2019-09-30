@@ -1,0 +1,131 @@
+= Amazon RDS+EC2+PGroonga+ロジカルレプリケーション\nを使った低コスト\n高速全文検索
+
+: author
+   堀本泰弘
+: institution
+   クリアコード
+: content-source
+   PostgreSQL Conference Japan 2019
+: date
+   2019-11-15
+: start-time
+   2019-11-15T14:10:00+09:00
+: end-time
+   2019-11-15T15:00:00+09:00
+: theme
+   .
+
+= 目次
+
+* 自己紹介
+* Amazon RDSとは？
+* PGroongaとは？
+
+= 自己紹介：名前と所属
+
+* 名前：堀本 泰弘
+* 所属：クリアコード
+
+= 自己紹介：お仕事1
+
+* 以下の全文検索エンジンの開発/サポート
+  * 高速な全文検索エンジンGroonga
+  * PostgreSQL拡張 PGroonga
+  * MySQL用ストレージエンジン Mroonga
+
+= 自己紹介：お仕事2
+
+* 以下の全文検索エンジンの開発/サポート
+  * GroongaのRubyバインディングRroonga
+  * その他関連ツール
+
+= 自己紹介
+
+全文検索でお困りの方は、是非ご相談ください。
+
+問い合わせ先：
+
+(('tag:x-small'))
+((<"https://www.clear-code.com/contact/?type=groonga"|URL:https://www.clear-code.com/contact/?type=groonga>))
+
+= Amazon RDSとは？
+
+* クラウド上にRDBMSを構築するサービス
+* 管理負担を軽減できる
+  * 操作が簡単 or 自動で必要な設定が可能
+
+= Amazon RDSとは？
+
+* 設定パラメータ
+  * 予め最適化
+  * Amazon RDS作成後、数分でデータベースへの接続が可能
+
+= Amazon RDSとは？
+
+* パッチ
+  * 自動適用
+  * 常に最新版で動作
+  * パッチ適用のタイミングを指定することも可能
+
+= Amazon RDSとは？
+
+* スケーラビリティ
+  * ワンタッチでCPUやメモリーをスケールアップ or スケールダウン
+  * ストレージのスケールアップ、スケールダウン
+    * ダウンタイムなしで実施可能
+
+= Amazon RDSとは？
+
+* バックアップ
+  * 自動
+* ハードウェア障害
+  * 自動的にハードウェアが交換される
+
+= Amazon RDSとは？
+
+* レプリケーション
+  * 自動
+  * ファイルオーバーは通常1〜2分
+  * フェイルオーバーも自動で実施される
+
+= PGroongaとは？
+
+* PostgreSQL経由で使える超高速な全文検索エンジン
+* PostgreSQL経由で使える
+  * 実装コスト：小
+  * メンテナンスコスト：小
+
+= PGroongaとは？
+
+* 本格的な全文検索エンジンをバックエンドで使用
+  * 全文検索に十分な機能を持つ
+    * 同義語検索
+    * 類似文書検索
+    * 読みがな検索 などなど
+
+= PGroongaとは？
+
+* 検索が安定して速い
+  * ヒット数が多くても、あまり速度が変わらない
+  * 更新中でも検索が遅くならない
+  * 更新されたデータは即検索できる
+
+= Amazon RDS と PGroonga
+
+* Amazon RDSは管理コストを低減できる
+* PGroongaは速くて機能が豊富
+
+= Amazon RDS と PGroonga
+
+* 組み合わせれば、運用が楽で高機能、高速な全文検索が実現できる
+
+= Amazon RDS と PGroonga
+
+* しかし、Amazon RDSは自由に拡張機能をインストールできない
+* 当然、PGroongaもRDS上では使えない
+
+= Amazon RDS と PGroonga
+
+* この発表でも、Amazon RDSにPGroongaはインストールしていない
+  * RDSにPGroongaをインストールせずに、RDSのメリットを活かす構成を模索
+
