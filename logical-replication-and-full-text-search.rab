@@ -91,11 +91,70 @@
 = PGroongaとは？
 
 * PostgreSQL経由で使える超高速な全文検索エンジン
-* PostgreSQL経由で使える
-  * 実装コスト：小
-  * メンテナンスコスト：小
 
 = PGroongaとは？
+
+* PostgreSQL経由で使える(SQLで検索できる)
+  * 実装コスト：小
+  * メンテナンスコスト：小
+  * LIKEも速くなる
+
+= PGroongaとは？
+
+実行例
+
+= PGroonga：\nテーブル定義
+
+  # coderay sql
+
+  CREATE TABLE entries (
+    title text,
+    content text
+  );
+
+= PGroonga：\nインデックス定義
+
+  # coderay sql
+
+  -- 全文検索用インデックス
+  CREATE INDEX entries_full_text_search
+    ON entries
+    --「USING PGroonga」=「PGroongaを使う」
+    USING PGroonga (title, content);
+
+= PGroonga：\nデータ挿入
+
+  # coderay sql
+
+  -- 普通に挿入するだけでよい
+  INSERT INTO entries
+    VALUES ('PGroongaで高速全文検索！',
+            '高速に全文検索したいですね！');
+
+= PGroonga：全文検索
+
+  # coderay sql
+
+  SELECT title FROM entries
+    WHERE
+  -- &@~で全文検索
+  -- 「検索」と「高速」をAND検索
+      title &@~ '検索 高速' OR
+      content &@~ '検索 高速';
+
+= PGroonga：LIKE
+
+  # coderay sql
+
+  SELECT title FROM entries
+    WHERE
+  -- LIKEでもインデックスが効く
+  --＝アプリを書き換えずに高速化可能
+  -- ただし&@~より性能が落ちる
+      title LIKE '%検索%' OR
+      content LIKE '%検索%';
+
+= PGroonga：機能
 
 * 本格的な全文検索エンジンをバックエンドで使用
   * 全文検索に十分な機能を持つ
@@ -103,12 +162,18 @@
     * 類似文書検索
     * 読みがな検索 などなど
 
-= PGroongaとは？
+= PGroonga：速度
 
 * 検索が安定して速い
   * ヒット数が多くても、あまり速度が変わらない
   * 更新中でも検索が遅くならない
   * 更新されたデータは即検索できる
+
+= PGroonga：\nベンチマーク
+
+  # image
+  # src = Images/search-pgroonga-pg-bigm.pdf
+  # relative_height = 100
 
 = Amazon RDS と PGroonga
 
@@ -129,3 +194,125 @@
 * この発表でも、Amazon RDSにPGroongaはインストールしていない
   * RDSにPGroongaをインストールせずに、RDSのメリットを活かす構成を模索
 
+= システム構成
+
+これから紹介する構成は以下の４つの要素を組み合わせて実現
+
+* Amazon RDS
+* Amazon EC2
+* PGroonga
+* ロジカルレプリケーション
+
+= 構成図
+
+  # image
+  # src = Images/1.png
+  # relative_height = 105
+
+= RDSとEC2の役割
+
+* Amazon RDSは更新専用
+* Amazon EC2は検索専用
+
+= PGroongaの\nインデックス設定
+
+* ロジカルレプリケーションは、DDLがレプリケーションされない
+  * サブスクライバであるEC2にのみPGroonga拡張をインストールして、全文検索用のインデックスを設定できる
+
+= データの管理
+
+* データは、RDSからロジカルレプリケーションで取得できる
+  * RDS上にデータがあれば、EC2での検索が可能
+
+= データの管理
+
+* RDSが保持しているデータがないと検索できなくなる
+  * RDSのデータは大切に守る必要がある
+  * データはRDSにあるので、安全な管理は容易
+
+= 負荷分散
+
+* ここで紹介したのは、最もシンプルな構成
+
+= 負荷分散
+
+* 検索リクエストが増えてくるとEC2が1台のみではリクエストが処理できなくなる
+
+= 負荷分散
+
+* データはRDS上にあり、EC2へはロジカルレプリケーションでデータを同期
+
+= 負荷分散
+
+* つまり、新規にEC2インスタンスを作成して、サブスクライバとしてRDSに接続すれば、検索用のサーバーが出来上がる
+
+= 負荷分散
+
+* EC2を増やすことで負荷を分散できる
+
+= 負荷分散：構成
+
+  # image
+  # src = Images/2.png
+  # relative_height = 105
+
+= 復旧
+
+* もしEC2へアクセス不能になったら
+
+= 復旧
+
+* データはRDSにある
+  * アクセスできるEC2を新しく作れば良い
+
+= 復旧：メリット
+
+* アクセス不能なEC2は破棄
+  * 復旧をがんばらなくてよい
+
+= 復旧：デメリット
+
+* RDSに保持しているデータが増えてくると、EC2の立ち上げに時間がかかる
+  * レプリケーションに時間がかかるため
+
+= デメリットの解消
+
+* 新規のEC2が検索用サーバーとして稼働できるまでの間、他のEC2でリクエストを処理できるようにしておく
+
+= ダメな例
+
+  # image
+  # src = Images/3.png
+  # relative_height = 105
+
+= ダメな例
+
+  # image
+  # src = Images/4.png
+  # relative_height = 105
+
+= ダメな例
+
+* この例では、1台でもアクセス不能になった場合、他のサーバーのリソース使用率が100％を超えるので、サービスの継続が難しくなる
+
+= 良い例
+
+  # image
+  # src = Images/5.png
+  # relative_height = 105
+
+= 良い例
+
+* この構成の場合は、同時に2台アクセス不能になってもサービス継続可能な構成
+
+= 良い例：1台故障
+
+  # image
+  # src = Images/6.png
+  # relative_height = 105
+
+= 良い例：2台故障
+
+  # image
+  # src = Images/7.png
+  # relative_height = 105
