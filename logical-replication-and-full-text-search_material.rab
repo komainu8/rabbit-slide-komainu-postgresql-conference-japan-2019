@@ -1,0 +1,218 @@
+= Amazon RDS+EC2+\nPGroonga+\nロジカルレプリケーション\nを使った\n低コスト高速全文検索
+
+: author
+   堀本泰弘
+: institution
+   クリアコード
+: content-source
+   PostgreSQL Conference Japan 2019
+: date
+   2019-11-15
+: start-time
+   2019-11-15T14:10:00+09:00
+: end-time
+   2019-11-15T15:00:00+09:00
+: theme
+   .
+
+= 目次
+
+* Amazon RDSとは？
+* PGroongaとは？
+* AmazonRDS と PGroonga
+
+= 目次
+
+* RDS + EC2 + PGroonga構成
+  * 構成図
+  * 負荷分散
+  * 復旧
+
+= Amazon RDSとは？
+
+* クラウド上にRDBMSを構築
+* 管理負担の軽減
+  * 操作が簡単
+  * 設定も最適化済み
+
+= PGroongaとは？
+
+* PostgreSQL経由で使える超高速な全文検索エンジン
+
+= PGroonga：検索
+
+  # image
+  # src = Images/8.png
+  # relative_height = 110
+
+= PGroonga：更新
+
+  # image
+  # src = Images/9.png
+  # relative_height = 110
+
+= PGroonga：メリット
+
+* PostgreSQL経由で使える(=SQLで検索できる)
+  * 実装コスト：小
+  * メンテナンスコスト：小
+  * LIKEも速くなる
+
+= PGroonga：実行例\nテーブル定義
+
+  # coderay sql
+  -- PostgreSQLのテーブル作成と同じ
+  CREATE TABLE entries (
+    title text,
+    content text
+  );
+
+= PGroonga：実行例\nインデックス定義
+
+  # coderay sql
+  -- 全文検索用インデックス
+  CREATE INDEX entries_full_text_search
+    ON entries
+    --「USING PGroonga」=「PGroongaを使う」
+    USING PGroonga (title, content);
+
+= PGroonga：実行例\nデータ挿入
+
+  # coderay sql
+  -- 普通に挿入するだけでよい
+  INSERT INTO entries
+    VALUES ('PGroongaで高速全文検索！',
+            '高速に全文検索したいですね！');
+
+= PGroonga：実行例\n全文検索
+
+  # coderay sql
+  SELECT title FROM entries
+    WHERE
+  -- &@~で全文検索
+  -- 「検索」と「高速」をAND検索
+      title &@~ '検索 高速' OR
+      content &@~ '検索 高速';
+
+= PGroonga：機能
+
+* 本格的な全文検索エンジンをバックエンドで使用
+  * 全文検索に十分な機能
+    * 同義語検索
+    * 類似文書検索
+    * 読みがな検索 などなど
+
+= PGroonga：速度
+
+* 検索が安定して速い
+  * ヒット数が多くても、あまり速度が変わらない
+  * 更新中でも検索が遅くならない
+  * 更新されたデータは即検索できる
+
+= Amazon RDS と PGroonga
+
+* Amazon RDSは管理コストを低減できる
+* PGroongaは速くて機能が豊富
+
+= Amazon RDS と PGroonga
+
+* 組み合わせれば、運用が楽で高機能、高速な全文検索が実現！
+
+= Amazon RDS と PGroonga
+
+* しかし、RDSは自由に拡張機能をインストールできない
+* 当然、PGroongaもRDS上では使えない
+
+= Amazon RDS と PGroonga
+
+* RDSにPGroongaをインストールしなくても、RDSのメリットを活かして全文検索する
+
+= システム構成
+
+以下の４つを組み合わせて実現
+
+* Amazon RDS
+* Amazon EC2
+* PGroonga
+* ロジカルレプリケーション
+
+= 構成図
+
+  # image
+  # src = Images/1.png
+  # relative_height = 105
+
+= Amazon RDSと\nAmazon EC2の役割
+
+* RDSは更新専用
+* EC2は検索専用
+
+= PGroongaの\nインデックス設定
+
+* ロジカルレプリケーション
+  * DDLをレプリケーションしない
+* この特徴を利用
+
+= PGroongaの\nインデックス設定
+
+* サブスクライバであるEC2にのみPGroonga拡張をインストール
+* EC2にのみ全文検索用のインデックスを設定
+
+= データの管理
+
+* データは、RDSからロジカルレプリケーションで取得
+  * RDS上にさえデータがあれば、EC2での検索が可能
+
+= データの管理
+
+* 逆に、RDSが保持しているデータがないと検索できない
+  * RDSのデータは大切に守る必要がある
+  * データはRDSにあるので、安全な管理は容易
+
+= 負荷分散
+
+* 検索リクエストが増えてくるとEC2 1台ではリクエストが処理できない
+
+= 負荷分散
+
+* データはRDS上にある
+* EC2へはロジカルレプリケーションでデータを同期
+
+= 負荷分散
+
+* 新規にEC2インスタンスを作成\n →サブスクライバとしてRDS\n   に接続\n   →検索用のサーバーが完成!
+
+= 負荷分散
+
+つまり
+* EC2を増やすことで負荷分散ができる
+
+= 負荷分散：構成
+
+  # image
+  # src = Images/2.png
+  # relative_height = 105
+
+= 復旧
+
+* EC2へアクセス不能なときは？
+
+= 復旧
+
+* データはRDSにある
+  * RDSにアクセスできるEC2を新しく作ればOK
+
+= 復旧
+
+* アクセス不能なEC2は破棄
+  * 復旧をがんばらなくてよい
+
+= 最後に
+
+高速で高機能な全文検索をお求めの方は↓↓
+
+問い合わせ先：
+
+(('tag:x-small'))
+((<"https://www.clear-code.com/contact/?type=groonga"|URL:https://www.clear-code.com/contact/?type=groonga>))
+
