@@ -17,7 +17,6 @@
 
 = 目次
 
-* Amazon RDSとは？
 * PGroongaとは？
 * AmazonRDS と PGroonga
 
@@ -27,13 +26,6 @@
   * 構成図
   * 負荷分散
   * 復旧
-
-= Amazon RDSとは？
-
-* クラウド上にRDBMSを構築
-* 管理負担の軽減
-  * 操作が簡単
-  * 設定も最適化済み
 
 = PGroongaとは？
 
@@ -120,12 +112,12 @@
 
 = Amazon RDS と PGroonga
 
-* RDSは自由に拡張機能をインストールできない
+* ただ、RDSは自由に拡張機能をインストールできない
 * PGroongaもRDSでは使えない
 
 = Amazon RDS と PGroonga
 
-* RDSにPGroongaをインストールしなくても、RDSのメリットを活かして全文検索する構成が必要
+* RDSにPGroongaをインストールしなくても、RDSのメリットを活かして全文検索したい！
 
 = システム構成
 
