@@ -23,49 +23,75 @@
 
 = 今日のテーマ
 
-なるべく((*楽*))に\n((*全文検索*))したい
+なるべく((*楽*))に\n((*高速な全文検索*))がしたい
 
 = 実現のための要素
 
   # image
-  # src = Images/elements.png
-  # relative_height = 100
+  # src = Images/elements1.png
+  # relative_height = 108
 
 = 特に大事な要素
 
   # image
   # src = Images/elements2.png
-  # relative_height = 100
+  # relative_height = 108
 
 = 今日のテーマ
 
-なるべく((*楽*))に\n((*全文検索*))したい
+なるべく((*楽*))に\n((*高速な全文検索*))がしたい
 
 = 楽
 
   # image
-  # src = Images/Amazon_RDS1.png
-  # relative_height = 100
+  # src = Images/Amazon_RDS.png
+  # relative_height = 108
 
 = 楽
 
 なぜ楽なのか？
 
-= 構築が楽
-
-TODO
-
 = 設定が楽
 
-TODO
+  # image
+  # src = Images/Amazon_RDS_optimization.png
+  # relative_height = 120
 
-= スケールアップ/ダウン\nが楽
+= 構築が楽
 
-TODO
+  # image
+  # src = Images/Amazon_RDS_structure.png
+  # relative_height = 100
+
+= スケールアップが楽
+
+  # image
+  # src = Images/Amazon_RDS_scaling1.png
+  # relative_height = 105
+
+= スケールアップが楽
+
+  # image
+  # src = Images/Amazon_RDS_scaling2.png
+  # relative_height = 105
 
 = 障害対策が楽
 
-TODO
+  # image
+  # src = Images/Amazon_RDS_replication.png
+  # relative_height = 105
+
+= 障害対策が楽
+
+  # image
+  # src = Images/Amazon_RDS_backup.png
+  # relative_height = 105
+
+= 障害対策が楽
+
+  # image
+  # src = Images/Amazon_RDS_hw_change.png
+  # relative_height = 105
 
 = 今日のテーマ
 
