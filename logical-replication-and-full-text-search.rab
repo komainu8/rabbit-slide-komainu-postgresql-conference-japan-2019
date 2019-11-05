@@ -100,8 +100,8 @@
 = 全文検索
 
   # image
-  # src = Images/Amazon_RDS1.png
-  # relative_height = 100
+  # src = Images/element_pgroonga.png
+  # relative_height = 108
 
 = 全文検索
 
@@ -113,11 +113,15 @@
 
 = 速い
 
-ベンチマーク
+  # image
+  # src = Images/pgroonga_vs_pg_bigm.png
+  # relative_height = 108
 
 = SQLが使える
 
-TODO
+  # image
+  # src = Images/pgroonga_sql.png
+  # relative_height = 108
 
 = 実例
 
@@ -162,12 +166,6 @@ TODO
       title &@~ '検索 高速' OR
       content &@~ '検索 高速';
 
-= 実行例：検索結果
-
-  # coderay sql
-
-  TODO
-
 = 実行例：LIKE
 
   # coderay sql
@@ -179,12 +177,6 @@ TODO
   -- ただし&@~より性能が落ちる
       title LIKE '%検索%' OR
       content LIKE '%検索%';
-
-= 実行例：検索結果
-
-  # coderay sql
-
-  TODO
 
 = RDS + PGroonga
 
