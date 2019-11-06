@@ -216,29 +216,31 @@
   # src = Images/logical_replication2.png
   # relative_height = 108
 
-= 更新
-
-TODO
-
 = 検索
 
-TODO
+  # image
+  # src = Images/logical_replication_read_only.png
+  # relative_height = 105
+
+= 更新
+
+  # image
+  # src = Images/logical_replication_write_only.png
+  # relative_height = 105
 
 = 問題点
 
-この構成には問題がある
+Subscriberが\n1台しかない
 
 = 問題点
 
-負荷
+* 1台では増加しつづける\nリクエストに耐えられない
 
-= 負荷
+= 負荷分散
 
-リクエスト増加に耐えられない
-
-= 負荷
-
-負荷分散
+  # image
+  # src = Images/logical_replication_load_barance.png
+  # relative_height = 105
 
 = 復旧
 
@@ -246,19 +248,40 @@ TODO
 
 = 復旧
 
-破棄
+  # image
+  # src = Images/logical_replication_cannot_search.png
+  # relative_height = 105
 
 = 復旧
 
-復旧はがんばらない
+  # image
+  # src = Images/logical_replication_EC2_destroy.png
+  # relative_height = 105
+
+= 復旧
+
+* 復旧はがんばらない
+* 破棄して、新規作成する
+
+= 復旧
+
+  # image
+  # src = Images/logical_replication_EC2_new.png
+  # relative_height = 105
 
 = サービス開始時間
 
-データが増えると遅くなる
+* データが増えると復旧が遅延
 
 = サービス開始時間
 
-データの同期に時間がかかるから
+* レプリケーションに時間がかかるから
+
+= サービス開始時間
+
+  # image
+  # src = Images/logical_replication_slow.png
+  # relative_height = 105
 
 = 停止時間の見積もり
 
@@ -266,7 +289,7 @@ TODO
 
 = 停止時間の見積もり
 
-停止時間を見積もる
+停止時間を\n見積もる
 
 = 良い構成：見積もり
 
@@ -316,6 +339,21 @@ TODO
 = 良い構成：見積もり
 
 * したがって、1ヶ月に約45分程度システムが停止する
+
+= まとめ
+
+* データはPublicaterが持っていれば、ロジカルレプリケーションでデータを取得できる
+* PublicaterはAmazon RDSなので楽に管理できる。
+
+= まとめ
+
+* Subscriberを簡単に作り直せる
+* 負荷分散はSubscriberを増やして対応
+
+= まとめ
+
+* 新しいSubscriberが運用できるまで、他のSubscriberで凌ぐ
+* そのために停止時間を見積もって、最適なSubscriberの台数を求める
 
 = まとめ
 
