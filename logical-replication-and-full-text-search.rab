@@ -178,29 +178,43 @@
       title LIKE '%検索%' OR
       content LIKE '%検索%';
 
-= RDS + PGroonga
+= Amazon RDS + PGroonga
 
-インストール\nできない！
+  # image
+  # src = Images/can_not_install.png
+  # relative_height = 108
 
-= RDS + PGroonga
+= Amazon RDS + PGroonga
 
 他の２つの要素の出番！
 
+= Amazon RDS + PGroonga
+
+  # image
+  # src = Images/elements3.png
+  # relative_height = 108
+
 = 構成
 
-TODO
+  # image
+  # src = Images/structure1.png
+  # relative_height = 108
 
 = ロジカル\nレプリケーションの特徴
 
-DDLをレプリケーションしない
+スキーマ定義をレプリケーションしない
 
 = ロジカル\nレプリケーションの特徴
 
-だから
+  # image
+  # src = Images/logical_replication1.png
+  # relative_height = 108
 
 = ロジカル\nレプリケーションの特徴
 
-SlaveにだけPGroonga OK!
+  # image
+  # src = Images/logical_replication2.png
+  # relative_height = 108
 
 = 更新
 
