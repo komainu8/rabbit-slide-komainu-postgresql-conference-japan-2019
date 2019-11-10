@@ -117,6 +117,11 @@
   # src = Images/pgroonga_vs_pg_bigm.png
   # relative_height = 108
 
+= 速い
+
+* ベンチマークの詳細な条件は以下を参照
+  * https://pgroonga.github.io/ja/reference/pgroonga-versus-pg-bigm.html
+
 = SQLが使える
 
   # image
@@ -411,9 +416,13 @@ Subscriberが\n1台しかない
 
 = 最後に
 
-全文検索について\n
-サポートが必要な方は↓↓
+* PGroongaについての疑問等は、GitHub、Gitterにて
+* ドキュメントも充実
+  * https://pgroonga.github.io/ja/
 
+= 最後に
+
+より突っ込んだお話がしたい場合は↓↓\n
 問い合わせ先：
 
 (('tag:x-small'))
