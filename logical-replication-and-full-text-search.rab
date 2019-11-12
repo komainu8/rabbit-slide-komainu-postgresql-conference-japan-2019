@@ -365,14 +365,14 @@ Subscriberが\n1台しかない
 
 = 復旧
 
-* 復旧はがんばらない
-* 破棄して、新規作成する
-
-= 復旧
-
   # image
   # src = Images/logical_replication_EC2_new.png
   # relative_height = 105
+
+= 復旧
+
+* 復旧はがんばらない
+* 破棄して、新規作成する
 
 = サービス開始時間
 
