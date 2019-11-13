@@ -113,6 +113,20 @@
 
 = 速い
 
+高速
+
+= 速い
+
+ベンチマーク
+
+= 速い
+
+* 日本語Wikipedia
+  * レコード数：約90万レコード
+  * 平均テキストサイズ：6.7KiB
+
+= 速い
+
   # image
   # src = Images/pgroonga_vs_pg_bigm.png
   # relative_height = 108
@@ -120,7 +134,9 @@
 = 速い
 
 * ベンチマークの詳細な条件は\n以下を参照
-  * https://pgroonga.github.io/ja/reference/pgroonga-versus-pg-bigm.html
+
+(('tag:x-small'))
+((<"https://pgroonga.github.io/ja/reference/pgroonga-versus-pg-bigm.html"|URL:https://pgroonga.github.io/ja/reference/pgroonga-versus-pg-bigm.html>))
 
 = SQLが使える
 
@@ -148,8 +164,8 @@
   -- 全文検索用インデックス
   CREATE INDEX entries_full_text_search
     ON entries
-    --「USING PGroonga」=「PGroongaを使う」
-    USING PGroonga (title, content);
+    --「USING pgroonga」=「PGroongaを使う」
+    USING pgroonga (title, content);
 
 = 実行例：データ挿入
 
@@ -249,13 +265,6 @@
 
 = 読みがな検索
 
-検索キーワード「広瀬」で
-  * 「広瀬」((*Hit*))
-  * 「廣瀬」((*Hit*))
-となってほしい
-
-= 読みがな検索
-
 通常の検索\n
 検索キーワード「広瀬」で
   * 「広瀬」のみ((*Hit*))
@@ -274,6 +283,27 @@
 = 読みがな検索
 
 広瀬,廣瀬は\n読みが同じ「ヒロセ」だから
+
+= 他にも
+
+* それっぽい順でソート
+* キーワードハイライト
+* キーワードの周辺テキスト表示
+
+= 他にも
+
+* 電話番号検索
+  * 090-1234-5678 と 090 1234 5678、(090)1234-5678 等
+* fuzzy検索
+  * テクノロジーとテノクロジー
+
+= 他にも
+
+継続的に\nメンテナンス\nされている
+
+= 他にも
+
+PostgreSQL12にも対応！\n
 
 = 高機能で高速
 
@@ -307,7 +337,7 @@ PGroongaなら((*高機能で高速に全文検索*))できる
 
 = ロジカル\nレプリケーションの特徴
 
-スキーマ定義をレプリケーションしない
+複製元と複製先の構造が同一でなくてもよい
 
 = ロジカル\nレプリケーションの特徴
 
@@ -339,7 +369,7 @@ Subscriberが\n1台しかない
 
 = 問題点
 
-* 1台では増加しつづける\nリクエストに耐えられない
+* リクエストが増加しつづけた場合、この構成では耐えられない
 
 = 負荷分散
 
@@ -365,14 +395,18 @@ Subscriberが\n1台しかない
 
 = 復旧
 
+* 復旧はがんばらない
+* 破棄して、新規作成する
+
+= 復旧
+
   # image
   # src = Images/logical_replication_EC2_new.png
   # relative_height = 105
 
-= 復旧
+= サービス開始時間
 
-* 復旧はがんばらない
-* 破棄して、新規作成する
+もう一つの問題
 
 = サービス開始時間
 
@@ -380,13 +414,13 @@ Subscriberが\n1台しかない
 
 = サービス開始時間
 
-* レプリケーションに時間がかかるから
-
-= サービス開始時間
-
   # image
   # src = Images/logical_replication_slow.png
   # relative_height = 105
+
+= サービス開始時間
+
+* レプリケーションに時間がかかるから
 
 = 停止時間の見積もり
 
@@ -465,7 +499,7 @@ Subscriberが\n1台しかない
 
 * PGroongaについての疑問等は、GitHub、Gitterにて
 * ドキュメントも充実
-  * https://pgroonga.github.io/ja/
+  * ((<"https://pgroonga.github.io/ja/"|URL:https://pgroonga.github.io/ja/>))
 
 = 最後に
 
