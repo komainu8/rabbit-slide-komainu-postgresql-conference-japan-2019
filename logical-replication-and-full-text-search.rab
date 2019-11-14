@@ -21,6 +21,12 @@
   # src = Images/Self-introduction.png
   # relative_height = 107
 
+= 自己紹介
+
+* 他のOSSへもコントリビュート
+  * 昨日、PostgreSQLのドキュメントの改善を提案
+  * 問題は((*「開発元」*))で修正が弊社の\nポリシー
+
 = 今日のテーマ
 
 なるべく((*楽*))に\n((*高機能で高速な全文検索*))\nがしたい
@@ -36,10 +42,6 @@
   # image
   # src = Images/elements2.png
   # relative_height = 108
-
-= 今日のテーマ
-
-なるべく((*楽*))に\n((*高機能で高速な全文検索*))\nがしたい
 
 = 楽
 
@@ -282,7 +284,7 @@
 
 = 読みがな検索
 
-広瀬,廣瀬は\n読みが同じ「ヒロセ」だから
+「広瀬」も\n「廣瀬」も\n読みが同じ
 
 = 他にも
 
@@ -295,7 +297,8 @@
 * 電話番号検索
   * 090-1234-5678 と 090 1234 5678、(090)1234-5678 等
 * fuzzy検索
-  * テクノロジーとテノクロジー
+  * typo対策
+    * テクノロジーとテノクロジー
 
 = 他にも
 
@@ -303,7 +306,7 @@
 
 = 他にも
 
-PostgreSQL12にも対応！\n
+PostgreSQL12に対応！(昨日)
 
 = 高機能で高速
 
@@ -383,6 +386,11 @@ Subscriberが\n1台しかない
 
 = 復旧
 
+使い捨てる\n
+復旧は\nがんばらない
+
+= 復旧
+
   # image
   # src = Images/logical_replication_cannot_search.png
   # relative_height = 105
@@ -392,11 +400,6 @@ Subscriberが\n1台しかない
   # image
   # src = Images/logical_replication_EC2_destroy.png
   # relative_height = 105
-
-= 復旧
-
-* 復旧はがんばらない
-* 破棄して、新規作成する
 
 = 復旧
 
@@ -410,17 +413,13 @@ Subscriberが\n1台しかない
 
 = サービス開始時間
 
-* データが増えると復旧が遅延
+データが増えると復旧が遅延
 
 = サービス開始時間
 
   # image
   # src = Images/logical_replication_slow.png
   # relative_height = 105
-
-= サービス開始時間
-
-* レプリケーションに時間がかかるから
 
 = 停止時間の見積もり
 
