@@ -1,0 +1,28 @@
+---
+id: postgresql-conference-japan-2019
+base_name: logical-replication-and-full-text-search
+tags:
+- rabbit
+- postgresql
+- pgcon19j
+- fts
+- search
+- pgroonga
+- groonga
+presentation_date: 2019-11-15
+version: 2019.11.15.0
+licenses:
+- CC-BY-SA-4.0
+- CC-BY-3.0
+slideshare_id: 
+speaker_deck_id: 
+ustream_id: 
+vimeo_id: 
+youtube_id: 
+author:
+  markup_language: :rd
+  name: 堀本泰弘
+  email: horimoto@clear-code.com
+  rubygems_user: komainu8
+  slideshare_user: 
+  speaker_deck_user: 
