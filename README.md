@@ -33,6 +33,12 @@ CC BY-SA 4.0
 
 原著作者：株式会社クリアコード
 
+### PostgreSQL Elephant ロゴ
+
+The PostgreSQL Licence
+
+原著作者：The PostgreSQL Community Association of Canada
+
 ## 作者向け
 
 ### 表示
